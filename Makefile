@@ -68,15 +68,7 @@ fclean			: clean
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
 
-re		: fclean all
+re			: fclean all
 
-.PHONY	:all clean fclean re
+.PHONY		:all clean fclean re
 		
-		
-
-
-
-
-
-
-re				: fclean all
