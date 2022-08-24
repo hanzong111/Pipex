@@ -1,6 +1,8 @@
-SRCS	= try.c
+SRCS	= ft_pathsort.c\
+			main.c
 
-OBJS	= try.o
+OBJS	= ft_pathsort.o\
+			main.o
 
 NAME	= pipex
 
@@ -8,7 +10,7 @@ LIBNAME	= libftpipex.a
 
 CC 	= gcc
 
-FLAGS 	= -Wall -Werror -Wextra -I .
+FLAGS 	= -Wall -Werror -Wextra -fsanitize=address -I .
 
 ARRC	= ar rcs
 
