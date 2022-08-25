@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/25 17:35:01 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:35:40 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_path_check(char **paths, char *cmd)
 	return (cmd_path);
 }
 
-/*	To Add a '\' character at the end of each extracted path	*/
+/*	To Add a '/' character at the end of each extracted path	*/
 char	**ft_pathcat(char **paths)
 {
 	char	**temp;
