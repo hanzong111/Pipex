@@ -1,8 +1,8 @@
 SRCS	= ft_pathsort.c\
-			main.c
+			main2.c
 
 OBJS	= ft_pathsort.o\
-			main.o
+			main2.o
 
 NAME	= pipex
 

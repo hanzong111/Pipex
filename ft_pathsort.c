@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/25 17:35:40 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/26 02:25:19 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_path_check(char **paths, char *cmd)
 		free(cmd_path);
 		i++;
 	}
-	return (cmd_path);
+	return (NULL);
 }
 
 /*	To Add a '/' character at the end of each extracted path	*/
@@ -92,7 +92,7 @@ char	**ft_pathcat(char **paths)
 }
 
 /*	To find the correct path and return it	*/
-char	*ft_pathsort(char **envp, char	*cmd)
+void	ft_pathsort(char **envp, t_info *info)
 {
 	char	**paths;
 	char	**temp;
@@ -100,7 +100,9 @@ char	*ft_pathsort(char **envp, char	*cmd)
 
 	paths = ft_path_extract(envp);
 	temp = ft_pathcat(paths);
-	cmd_path = ft_path_check(temp, cmd);
+	cmd_path = ft_path_check(temp, info->cmd);
+	if (cmd_path == NULL)
+		perror("Command");
 	free(temp);
-	return (cmd_path);
+	info->path = cmd_path;
 }

@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_extract_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 21:36:26 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 02:28:05 by ojing-ha         ###   ########.fr       */
+/*   Created: 2022/08/26 02:13:20 by ojing-ha          #+#    #+#             */
+/*   Updated: 2022/08/26 02:31:13 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include "libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <stdlib.h>
-
-typedef struct s_info
+/* To Extract the commands from the arguments		*/
+/*	Example : "ls -la" , need to extract ls and -la	*/
+void	ft_extract_cmd(char	*str, t_info *info)
 {
-	char	*cmd;
-	char	*flag;	
-	char	*path;
-}t_info;
+	char	**cmd_line;
 
-void	ft_pathsort(char **envp, t_info *info);
-void	ft_extract_cmd(char	*str, t_info *info);
-
-#endif
+	cmd_line = ft_split(str, ' ');
+	info->cmd = ft_strdup(cmd_line[0]);
+	free(cmd_line[0]);
+	if (cmd_line[1])
+	{
+		info->flag = ft_strdup(cmd_line[1]);
+		free(cmd_line[1]);
+	}
+	free(cmd_line);
+}

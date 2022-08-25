@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 21:36:26 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 02:28:05 by ojing-ha         ###   ########.fr       */
+/*   Created: 2022/08/26 02:17:34 by ojing-ha          #+#    #+#             */
+/*   Updated: 2022/08/26 02:29:42 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include "libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <stdlib.h>
-
-typedef struct s_info
+int	main(int argc, char **argv, char**envp)
 {
-	char	*cmd;
-	char	*flag;	
-	char	*path;
-}t_info;
+	t_info	info;
 
-void	ft_pathsort(char **envp, t_info *info);
-void	ft_extract_cmd(char	*str, t_info *info);
-
-#endif
+	envp[0] = "haha";
+	if (argc >= 5)
+	{
+		info.flag = NULL;
+		ft_extract_cmd(argv[2], &info);
+		printf("Cmd is %s\n", info.cmd);
+		if (info.flag)
+		{	
+			printf("Cmd flag is %s\n", info.flag);
+			free(info.flag);
+		}
+		free(info.cmd);
+		return (0);
+	}
+	printf("Need at least 4 arguments\n");
+	return (0);
+}
