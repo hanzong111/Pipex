@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 04:34:12 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/26 04:41:30 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	main(int argc, char **argv, char**envp)
 		{	
 			info.infile = ft_strdup(argv[1]);
 			infile_fd = open(info.infile, O_RDONLY);
+			if (infile_fd == -1)
+			{
+				free(info.infile);
+				perror("Infile Error");
+				return (0);
+			}
 			dup2(infile_fd, STDIN_FILENO);
 			dup2(pipe_fd[1], STDOUT_FILENO);
 			close(pipe_fd[0]);
