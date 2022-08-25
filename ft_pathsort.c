@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/25 17:27:04 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:33:20 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	**ft_path_extract(char **envp);
 char	*ft_path_check(char **paths, char *cmd);
+char	**ft_pathcat(char **paths);
 
 /*	Extract the whole PATH= from envp	*/
 char	**ft_path_extract(char **envp)
@@ -67,16 +68,13 @@ char	*ft_path_check(char **paths, char *cmd)
 	return (cmd_path);
 }
 
-/*	To find the correct path and return it	*/
-char	*ft_pathsort(char **envp, char	*cmd)
+/*	To Add a '\' character at the end of each extracted path	*/
+char	**ft_pathcat(char **paths)
 {
-	char	**paths;
 	char	**temp;
-	char	*cmd_path;
 	int		x;
 	int		count;
-
-	paths = ft_path_extract(envp);
+	
 	x = 0;
 	count = 0;
 	while (paths[count])
@@ -90,6 +88,18 @@ char	*ft_pathsort(char **envp, char	*cmd)
 		x++;
 	}
 	free(paths);
+	return(temp);
+}
+
+/*	To find the correct path and return it	*/
+char	*ft_pathsort(char **envp, char	*cmd)
+{
+	char	**paths;
+	char	**temp;
+	char	*cmd_path;
+
+	paths = ft_path_extract(envp);
+	temp = ft_pathcat(paths);
 	cmd_path = ft_path_check(temp, cmd);
 	free(temp);
 	return (cmd_path);
