@@ -1,1 +1,15 @@
-Hello world
+Makefile
+Test
+ft_extract.c
+ft_extract.o
+ft_pathsort.c
+ft_pathsort.o
+libft
+libftpipex.a
+mai
+main2.o
+mainpipex.c
+mainpipex.o
+outfile
+pipex
+pipex.h

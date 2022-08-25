@@ -1,10 +1,10 @@
 SRCS	= ft_extract.c\
 			ft_pathsort.c\
-			main2.c
+			mainpipex.c
 
 OBJS	= ft_extract.o\
 			ft_pathsort.o\
-			main2.o
+			mainpipex.o
 
 NAME	= pipex
 
