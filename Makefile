@@ -1,7 +1,9 @@
-SRCS	= ft_pathsort.c\
+SRCS	= ft_extract.c\
+			ft_pathsort.c\
 			main2.c
 
-OBJS	= ft_pathsort.o\
+OBJS	= ft_extract.o\
+			ft_pathsort.o\
 			main2.o
 
 NAME	= pipex

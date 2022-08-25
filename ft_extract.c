@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_extract_cmd.c                                   :+:      :+:    :+:   */
+/*   ft_extract.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 02:13:20 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 02:58:17 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/26 03:20:25 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* To Extract the commands from the arguments		*/
 /*	Example : "ls -la" , need to extract ls and -la	*/
-void	ft_extract_cmd(char	*str, t_info *info)
+void	ft_extract(char	*str, t_info *info)
 {
 	char	**cmd_line;
 
