@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/24 21:25:34 by ojing-ha          #+#    #+#             */
+/*   Updated: 2022/08/26 01:00:35 by ojing-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "pipex.h"
+
+int     main(int ac, char **av, char **envp)
+{
+	if (ac > 4)
+		return(printf("fk u\n"));
+	av[0] = "haha";
+	char	*cmd_path;
+	char	*cmd;
+	char	*infile;
+	int		fd;
+	int		fd2;
+	char	*buffer;
+	int		pipefd[2];
+
+	pipe(pipefd);
+	infile = ft_strdup(av[1]);
+	buffer = malloc(sizeof(char) * (ft_strlen(infile) + 1));
+	buffer[ft_strlen(infile)] = '\0';
+	// printf("strlen is %ld\n", ft_strlen(infile));
+	fd = open(infile, O_RDONLY);
+	fd2 = open("outfile", O_RDWR);
+	write(fd2, "Hello world", 11);
+	dup2(fd, STDIN_FILENO);
+
+
+
+
+
+	cmd = ft_strdup(av[2]);
+	cmd_path = ft_pathsort(envp, cmd);
+	printf("String is %s\n", cmd_path);
+	char *const	argv[] = {cmd, "-e", NULL};
+	char *const	try[] = {NULL};
+	execve(cmd_path, argv, try);
+	free(infile);
+	// printf("fd is %d\n", fd);
+	free(cmd);
+	free(cmd_path);
+	return (0);
+}
