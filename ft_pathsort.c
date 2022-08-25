@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/25 16:44:43 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:27:04 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ char	*ft_pathsort(char **envp, char	*cmd)
 		count++;
 	temp = malloc(sizeof(char *) * (count + 1));
 	temp[count] = NULL;
-		printf("x is %d\n", x);
 	while (paths[x])
 	{
 		temp[x] = ft_strjoin(paths[x], "/");
