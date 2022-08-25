@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 02:25:19 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/26 04:56:38 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**ft_pathcat(char **paths)
 	char	**temp;
 	int		x;
 	int		count;
-	
+
 	x = 0;
 	count = 0;
 	while (paths[count])
@@ -88,7 +88,7 @@ char	**ft_pathcat(char **paths)
 		x++;
 	}
 	free(paths);
-	return(temp);
+	return (temp);
 }
 
 /*	To find the correct path and return it	*/
