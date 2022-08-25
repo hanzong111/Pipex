@@ -10,7 +10,7 @@ LIBNAME	= libftpipex.a
 
 CC 	= gcc
 
-FLAGS 	= -Wall -Werror -Wextra -fsanitize=address -I .
+FLAGS 	= -Wall -Werror -Wextra -fsanitize=address -g3 -I .
 
 ARRC	= ar rcs
 

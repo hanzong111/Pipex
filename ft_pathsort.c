@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/24 21:40:07 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:44:43 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,18 @@ char	*ft_path_check(char **paths, char *cmd)
 	int		i;
 
 	i = 0;
-	while (paths[i++])
+	while (paths[i])
 	{
 		cmd_path = ft_strjoin(paths[i], cmd);
+		free(paths[i]);
 		if (access(cmd_path, F_OK | X_OK) == 0)
+		{
+			while (paths[++i])
+				free(paths[i]);
 			return (cmd_path);
+		}
 		free(cmd_path);
+		i++;
 	}
 	return (cmd_path);
 }
@@ -65,18 +71,27 @@ char	*ft_path_check(char **paths, char *cmd)
 char	*ft_pathsort(char **envp, char	*cmd)
 {
 	char	**paths;
-	char	*temp;
+	char	**temp;
+	char	*cmd_path;
 	int		x;
+	int		count;
 
 	paths = ft_path_extract(envp);
 	x = 0;
-	while (paths[x++])
+	count = 0;
+	while (paths[count])
+		count++;
+	temp = malloc(sizeof(char *) * (count + 1));
+	temp[count] = NULL;
+		printf("x is %d\n", x);
+	while (paths[x])
 	{
-		temp = paths[x];
-		paths[x] = ft_strjoin(paths[x], "/");
-		free(temp);
+		temp[x] = ft_strjoin(paths[x], "/");
+		free(paths[x]);
+		x++;
 	}
-	temp = ft_path_check(paths, cmd);
 	free(paths);
-	return (temp);
+	cmd_path = ft_path_check(temp, cmd);
+	free(temp);
+	return (cmd_path);
 }

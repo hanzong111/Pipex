@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:34 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/24 21:43:49 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:00:44 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int     main(int ac, char **av, char **envp)
 	cmd_path = ft_pathsort(envp, cmd);
 	printf("String is %s\n", cmd_path);
 	free(cmd);
+	free(cmd_path);
 	return (0);
 }
