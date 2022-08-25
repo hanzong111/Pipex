@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 02:17:34 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 02:29:42 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/26 03:08:46 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ int	main(int argc, char **argv, char**envp)
 	if (argc >= 5)
 	{
 		info.flag = NULL;
+		info.envp2 = NULL;
 		ft_extract_cmd(argv[2], &info);
-		printf("Cmd is %s\n", info.cmd);
-		if (info.flag)
-		{	
-			printf("Cmd flag is %s\n", info.flag);
-			free(info.flag);
-		}
-		free(info.cmd);
+		ft_pathsort(envp, &info);
+		ft_options(&info);
+		execve(info.path, info.options, info.envp2);
+		free(info.options[0]);
+		free(info.options[1]);
+		free(info.options);
+		free(info.path);
 		return (0);
 	}
 	printf("Need at least 4 arguments\n");
