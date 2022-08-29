@@ -6,11 +6,23 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 04:41:30 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:53:39 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	ft_free(t_info *info)
+{
+	if (info->outfile)
+		free(info->outfile);
+	if (info->infile)
+		free(info->infile);
+	free(info->options[0]);
+	free(info->options[1]);
+	free(info->options);
+	free(info->path);
+}
 
 int	main(int argc, char **argv, char**envp)
 {
@@ -44,17 +56,13 @@ int	main(int argc, char **argv, char**envp)
 			dup2(pipe_fd[1], STDOUT_FILENO);
 			close(pipe_fd[0]);
 			close(pipe_fd[1]);
-			free(info.infile);
 			info.flag = NULL;
 			info.envp2 = NULL;
 			ft_extract(argv[2], &info);
 			ft_pathsort(envp, &info);
 			ft_options(&info);
 			execve(info.path, info.options, info.envp2);
-			free(info.options[0]);
-			free(info.options[1]);
-			free(info.options);
-			free(info.path);
+			ft_free(&info);
 		}
 		pid2 = fork();
 		if (pid2 == -1)
@@ -67,17 +75,13 @@ int	main(int argc, char **argv, char**envp)
 			dup2(outfile_fd, STDOUT_FILENO);
 			close(pipe_fd[0]);
 			close(pipe_fd[1]);
-			free(info.outfile);
 			info.flag = NULL;
 			info.envp2 = NULL;
 			ft_extract(argv[3], &info);
 			ft_pathsort(envp, &info);
 			ft_options(&info);
 			execve(info.path, info.options, info.envp2);
-			free(info.options[0]);
-			free(info.options[1]);
-			free(info.options);
-			free(info.path);	
+			ft_free(&info);	
 		}
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
