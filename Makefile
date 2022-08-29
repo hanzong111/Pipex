@@ -5,7 +5,7 @@ LIBNAME	= libft.a
 
 CC 	= gcc
 
-FLAGS 	= -Wall -Werror -Wextra -I .
+FLAGS 	= -Wall -Werror -Wextra -fsanitize=address -g3 -I .
 
 ARRC	= ar rcs
 

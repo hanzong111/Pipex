@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/29 23:50:27 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/30 00:37:47 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 void	ft_free(t_info *info)
 {
-	if (info->outfile)
-		free(info->outfile);
-	if (info->infile)
-		free(info->infile);
-	free(info->cmd);
 	free(info->options[0]);
 	free(info->options[1]);
 	free(info->options);
@@ -53,6 +48,7 @@ int	main(int argc, char **argv, char**envp)
 				perror("Infile Error");
 				return (0);
 			}
+			free(info.infile);
 			dup2(infile_fd, STDIN_FILENO);
 			dup2(pipe_fd[1], STDOUT_FILENO);
 			close(pipe_fd[0]);
@@ -71,7 +67,14 @@ int	main(int argc, char **argv, char**envp)
 		if (pid2 == 0)
 		{
 			info.outfile = ft_strdup(argv[4]);
-			outfile_fd = open(info.outfile, O_RDWR | O_TRUNC | O_CREAT);
+			outfile_fd = open(info.outfile, O_WRONLY | O_TRUNC | O_CREAT);
+			if (outfile_fd == -1)
+			{
+				free(info.outfile);
+				perror("Infile Error");
+				return (0);
+			}
+			free(info.outfile);
 			dup2(pipe_fd[0], STDIN_FILENO);
 			dup2(outfile_fd, STDOUT_FILENO);
 			close(pipe_fd[0]);
