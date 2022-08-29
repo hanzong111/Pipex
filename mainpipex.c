@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/29 13:53:39 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:23:18 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_free(t_info *info)
 		free(info->outfile);
 	if (info->infile)
 		free(info->infile);
+	free(info->cmd);
 	free(info->options[0]);
 	free(info->options[1]);
 	free(info->options);
