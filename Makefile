@@ -1,18 +1,11 @@
-SRCS	= ft_extract.c\
-			ft_pathsort.c\
-			mainpipex.c
-
-OBJS	= ft_extract.o\
-			ft_pathsort.o\
-			mainpipex.o
 
 NAME	= pipex
 
-LIBNAME	= libftpipex.a
+LIBNAME	= libft.a
 
 CC 	= gcc
 
-FLAGS 	= -Wall -Werror -Wextra -fsanitize=address -g3 -I .
+FLAGS 	= -Wall -Werror -Wextra -I .
 
 ARRC	= ar rcs
 
@@ -37,19 +30,14 @@ $(NAME)			: ${LIBNAME}
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
 
-${LIBNAME}	: ${OBJS}
+${LIBNAME}	: 
 				make -C libft
 				@echo "$(MAGENTA) --------------------------COMPILING LIBFTPIPEX.A-------------------------- $(CYAN)"
 				@echo "\n"
 				cp libft/libft.a .
-				mv libft.a libftpipex.a
-				${ARRC} libftpipex.a ${OBJS}
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
 
-%.o				: %.c
-				@echo "$(MAGENTA)"
-				${CC} ${FLAGS} -c $< -o $@
 
 clean			:
 				@make clean -C libft
