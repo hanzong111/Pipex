@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/29 21:23:18 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:46:33 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char**envp)
 		if (pid2 == 0)
 		{
 			info.outfile = ft_strdup(argv[4]);
-			outfile_fd = open(info.outfile, O_WRONLY | O_TRUNC | O_CREAT);
+			outfile_fd = open(info.outfile, O_RDWR | O_TRUNC | O_CREAT);
 			dup2(pipe_fd[0], STDIN_FILENO);
 			dup2(outfile_fd, STDOUT_FILENO);
 			close(pipe_fd[0]);
