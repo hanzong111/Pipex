@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/29 21:46:33 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/29 23:50:27 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int argc, char **argv, char**envp)
 			ft_pathsort(envp, &info);
 			ft_options(&info);
 			execve(info.path, info.options, info.envp2);
-			ft_free(&info);	
+			ft_free(&info);
 		}
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
