@@ -1,4 +1,3 @@
-
 NAME	= pipex
 
 LIBNAME	= libft.a
@@ -63,4 +62,3 @@ fclean			: clean
 re			: fclean all
 
 .PHONY		:all clean fclean re
-		

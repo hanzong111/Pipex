@@ -6,19 +6,11 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/30 00:37:47 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/31 02:07:18 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_free(t_info *info)
-{
-	free(info->options[0]);
-	free(info->options[1]);
-	free(info->options);
-	free(info->path);
-}
 
 int	main(int argc, char **argv, char**envp)
 {
@@ -58,8 +50,7 @@ int	main(int argc, char **argv, char**envp)
 			ft_extract(argv[2], &info);
 			ft_pathsort(envp, &info);
 			ft_options(&info);
-			execve(info.path, info.options, info.envp2);
-			ft_free(&info);
+			execve(info.path, info.options, info.envp2);		
 		}
 		pid2 = fork();
 		if (pid2 == -1)
@@ -67,11 +58,11 @@ int	main(int argc, char **argv, char**envp)
 		if (pid2 == 0)
 		{
 			info.outfile = ft_strdup(argv[4]);
-			outfile_fd = open(info.outfile, O_WRONLY | O_TRUNC | O_CREAT);
+			outfile_fd = open(info.outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 			if (outfile_fd == -1)
 			{
 				free(info.outfile);
-				perror("Infile Error");
+				perror("Outfile Error");
 				return (0);
 			}
 			free(info.outfile);
@@ -85,7 +76,6 @@ int	main(int argc, char **argv, char**envp)
 			ft_pathsort(envp, &info);
 			ft_options(&info);
 			execve(info.path, info.options, info.envp2);
-			ft_free(&info);
 		}
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
