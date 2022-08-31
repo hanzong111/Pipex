@@ -6,83 +6,46 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/31 02:07:18 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:02:39 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	ft_close_wait(t_info *info, int argc)
+{
+	int	pipe_fd;
+	int	pid_fd;
+
+	pid_fd = argc - 3;
+	pipe_fd = (argc - 4) * 2;
+	while (pipe_fd >= 0)
+	{
+		close(info->pipe[pipe_fd]);
+		pipe_fd--;
+	}
+	while (pid_fd >= 0)
+	{
+		waitpid(info->pid[pid_fd], NULL, 0);
+		pid_fd--;
+	}
+}
+
 int	main(int argc, char **argv, char**envp)
 {
 	t_info	info;
-	pid_t	pid1;
-	pid_t	pid2;
-	int		infile_fd;
-	int		outfile_fd;
-	int		pipe_fd[2];
 
-	infile_fd = 0;
-	outfile_fd = 0;
+	info.pid = malloc(sizeof(pid_t) * (argc - 3));
+	info.pipe = malloc(sizeof(int) * ((argc - 4) * 2));
 	if (argc >= 5)
 	{
-		if (pipe(pipe_fd) == -1)
+		if (pipe(info.pipe) == -1)
 			return (1);
-		pid1 = fork();
-		if (pid1 == -1)
-			return (2);
-		if (pid1 == 0)
-		{	
-			info.infile = ft_strdup(argv[1]);
-			infile_fd = open(info.infile, O_RDONLY);
-			if (infile_fd == -1)
-			{
-				free(info.infile);
-				perror("Infile Error");
-				return (0);
-			}
-			free(info.infile);
-			dup2(infile_fd, STDIN_FILENO);
-			dup2(pipe_fd[1], STDOUT_FILENO);
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-			info.flag = NULL;
-			info.envp2 = NULL;
-			ft_extract(argv[2], &info);
-			ft_pathsort(envp, &info);
-			ft_options(&info);
-			execve(info.path, info.options, info.envp2);		
-		}
-		pid2 = fork();
-		if (pid2 == -1)
-			return (3);
-		if (pid2 == 0)
-		{
-			info.outfile = ft_strdup(argv[4]);
-			outfile_fd = open(info.outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			if (outfile_fd == -1)
-			{
-				free(info.outfile);
-				perror("Outfile Error");
-				return (0);
-			}
-			free(info.outfile);
-			dup2(pipe_fd[0], STDIN_FILENO);
-			dup2(outfile_fd, STDOUT_FILENO);
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-			info.flag = NULL;
-			info.envp2 = NULL;
-			ft_extract(argv[3], &info);
-			ft_pathsort(envp, &info);
-			ft_options(&info);
-			execve(info.path, info.options, info.envp2);
-		}
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		close(infile_fd);
-		close(outfile_fd);
-		waitpid(pid1, NULL, 0);
-		waitpid(pid2, NULL, 0);
+		info.pid[0] = fork();
+		first_process(&info, argv, envp);
+		info.pid[argc - 4] = fork();
+		last_process(&info, argv, envp);
+		ft_close_wait(&info, argc);
 		return (0);
 	}
 	printf("Need at least 4 arguments\n");

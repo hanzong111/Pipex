@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:36:26 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/26 03:51:36 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:00:04 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,16 @@
 
 typedef struct s_info
 {
-	char	*infile;
-	char	*outfile;
+	pid_t	*pid;
+	int		*pipe;
+
+	char	*in;
+	char	*out;
 	char	*cmd;
 	char	*flag;
+
+	int		in_fd;
+	int		out_fd;
 
 	char	*path;
 	char	**options;
@@ -35,6 +41,8 @@ typedef struct s_info
 
 void	ft_pathsort(char **envp, t_info *info);
 void	ft_extract(char	*str, t_info *info);
-void	ft_options(t_info *info);
+void	ft_execute(t_info *info);
+void	first_process(t_info *info, char **argv, char **envp);
+void	last_process(t_info *info, char **argv, char **envp);
 
 #endif
