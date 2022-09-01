@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:36:26 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/08/31 17:00:04 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:31:16 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_info
 {
 	pid_t	*pid;
 	int		*pipe;
+	int		last_pipe;
+	int		count;
 
 	char	*in;
 	char	*out;
@@ -43,6 +45,7 @@ void	ft_pathsort(char **envp, t_info *info);
 void	ft_extract(char	*str, t_info *info);
 void	ft_execute(t_info *info);
 void	first_process(t_info *info, char **argv, char **envp);
-void	last_process(t_info *info, char **argv, char **envp);
+void	middle_process(t_info *info, int i, char **argv, char **envp);
+void	last_process(t_info *info, int argc, char **argv, char **envp);
 
 #endif
