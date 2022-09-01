@@ -1,6 +1,14 @@
+SRCS	= ft_extract.c\
+			ft_pathsort.c\
+			ft_processes.c\
+
+OBJS	= ft_extract.o\
+			ft_pathsort.o\
+			ft_processes.o\
+
 NAME	= pipex
 
-LIBNAME	= libft.a
+LIBNAME	= libftpipex.a
 
 CC 	= gcc
 
@@ -25,18 +33,23 @@ all		: ${NAME}
 $(NAME)			: ${LIBNAME}
 				@echo "$(MAGENTA) --------------------------COMPILING ./PIPEX-------------------------- $(CYAN)"
 				@echo "\n"
-				${CC} ${FLAGS} *.c ${LIBNAME} -o ${NAME}
+				${CC} ${FLAGS} mainpipex.c ${LIBNAME} -o ${NAME}
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
 
-${LIBNAME}	: 
+${LIBNAME}	: ${OBJS}
 				make -C libft
 				@echo "$(MAGENTA) --------------------------COMPILING LIBFTPIPEX.A-------------------------- $(CYAN)"
 				@echo "\n"
 				cp libft/libft.a .
+				mv libft.a libftpipex.a
+				${ARRC} libftpipex.a ${OBJS}
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
 
+%.o				: %.c
+				@echo "$(MAGENTA)"
+				${CC} ${FLAGS} -c $< -o $@
 
 clean			:
 				@make clean -C libft
