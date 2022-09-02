@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 02:13:20 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/01 17:01:25 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/02 17:02:44 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_execute(t_info *info)
 {
 	int	i;
 
-	info->envp2 = NULL;
 	if (info->flag)
 		i = 2;
 	else

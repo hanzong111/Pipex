@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/01 17:02:29 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/02 17:01:26 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	main(int argc, char **argv, char**envp)
 	int		process;
 	int		i;
 
-	i = 1;
-	process = argc - 3;
-	info.pid = malloc(sizeof(pid_t) * process);
-	info.pipe = malloc(sizeof(int) * 2);
 	if (argc >= 5)
 	{
+		i = 1;
+		process = argc - 3;
+		info.pid = malloc(sizeof(pid_t) * process);
+		info.pipe = malloc(sizeof(int) * 2);
 		if (pipe(info.pipe) == -1)
 			return (0);
 		first_process(&info, argv, envp);
@@ -45,6 +45,8 @@ int	main(int argc, char **argv, char**envp)
 			middle_process(&info, i, argv, envp);
 		last_process(&info, argc, argv, envp);
 		close_wait(&info, argc);
+		free(info.pid);
+		free(info.pipe);
 		return (0);
 	}
 	printf("Need at least 4 arguments\n");

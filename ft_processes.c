@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:59:00 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/01 17:03:27 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:56:20 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	first_process(t_info *info, char **argv, char **envp)
 		close(info->pipe[0]);
 		close(info->pipe[1]);
 		info->flag = NULL;
-		info->envp2 = NULL;
+		info->envp2 = envp;
 		ft_extract(argv[2], info);
 		ft_pathsort(envp, info);
 		ft_execute(info);
@@ -56,7 +56,7 @@ void	middle_process(t_info *info, int i, char **argv, char **envp)
 		close(info->pipe[0]);
 		close(info->pipe[1]);
 		info->flag = NULL;
-		info->envp2 = NULL;
+		info->envp2 = envp;
 		ft_extract(argv[i + 1], info);
 		ft_pathsort(envp, info);
 		ft_execute(info);
@@ -83,7 +83,7 @@ void	last_process(t_info *info, int argc, char **argv, char **envp)
 		close(info->pipe[0]);
 		close(info->pipe[1]);
 		info->flag = NULL;
-		info->envp2 = NULL;
+		info->envp2 = envp;
 		ft_extract(argv[argc - 2], info);
 		ft_pathsort(envp, info);
 		ft_execute(info);
