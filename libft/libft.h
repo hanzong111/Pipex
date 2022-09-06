@@ -6,17 +6,17 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 17:48:03 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/07/11 14:20:08 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:01:41 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include <stdint.h>
 
 typedef struct s_list
 {

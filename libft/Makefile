@@ -33,7 +33,9 @@ SRCS =	ft_atoi.c\
 		ft_putchar_fd.c\
 		ft_putstr_fd.c\
 		ft_putendl_fd.c\
-		ft_putnbr_fd.c
+		ft_putnbr_fd.c\
+		get_next_line_utils.c\
+		get_next_line.c
 
 INCLUDES = .
 
@@ -63,42 +65,20 @@ CLEAN = rm -f ${OBJS} ${BONUSOBJS}
 
 FCLEAN = rm -f $(NAME)
 
-DEF_COLOR     = \033[0;39m
-GRAY         = \033[0;90m
-RED         = \033[0;91m
-GREEN         = \033[0;92m
-YELLOW         = \033[0;93m
-BLUE         = \033[0;94m
-MAGENTA     = \033[0;95m
-CYAN         = \033[0;96m
-WHITE         = \033[0;97m
-
-all 	: $(NAME) 
+all :	$(NAME)
 
 $(NAME) : ${OBJS}
-		@echo "$(MAGENTA) --------------------------COMPILING LIBFT.A-------------------------- $(CYAN)"
-		@echo "\n"
 		${LIB} $(NAME) ${OBJS}
-		@echo "\n"
-		@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
 	
 %.o: %.c
-		@echo "$(MAGENTA)"
 		${CC} ${FLAGS} -I ${INCLUDES} $< -o ${<:.c=.o} 
 
 clean : 
-		@echo "$(MAGENTA) --------------------------CLEANING LIBFT OBJECTS-------------------------- $(CYAN)"
-		@echo "\n"
 		${CLEAN}
-		@echo "\n"
-		@echo "$(GREEN) --------------------------DONE--------------------------$(DEF_COLOR)"
 
 fclean : clean 
-		@echo "$(MAGENTA) --------------------------REMOVING libft.a-------------------------- $(CYAN)"
-		@echo "\n"
 		${FCLEAN}
-		@echo "\n"
-		@echo "$(GREEN) --------------------------DONE--------------------------$(DEF_COLOR)"
+
 bonus : ${BONUSOBJS}
 		${LIB} $(NAME) ${BONUSOBJS}
 
