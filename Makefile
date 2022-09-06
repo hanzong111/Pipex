@@ -1,10 +1,12 @@
 SRCS	= ft_extract.c\
 			ft_pathsort.c\
 			ft_processes.c\
+			ft_compare.c\
 
 OBJS	= ft_extract.o\
 			ft_pathsort.o\
 			ft_processes.o\
+			ft_compare.o\
 
 NAME	= pipex
 
@@ -12,7 +14,7 @@ LIBNAME	= libftpipex.a
 
 CC 	= gcc
 
-FLAGS 	= -Wall -Werror -Wextra -fsanitize=address -g3 -I .
+FLAGS 	= -Wall -Werror -Wextra -I .
 
 ARRC	= ar rcs
 

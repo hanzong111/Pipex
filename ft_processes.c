@@ -6,21 +6,23 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:59:00 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/06 19:57:12 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/07 05:21:38 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	first_process(t_info *info, int i, char **argv, char **envp)
+void	first_process(t_info *info, char **argv, char **envp)
 {
-	i = 9;
 	info->pid[0] = fork();
 	if (info->pid[0] == -1)
 		exit(0);
 	if (info->pid[0] == 0)
 	{	
-		info->in = ft_strdup(argv[1]);
+		if (!ft_strnstr(argv[1], "here_doc", 8))
+			info->in = ft_strdup(argv[1]);
+		else
+			info->in = ft_strdup("temp");
 		info->in_fd = open(info->in, O_RDONLY);
 		if (info->in_fd == -1)
 		{
@@ -36,7 +38,6 @@ void	first_process(t_info *info, int i, char **argv, char **envp)
 		ft_extract(argv[info->no], info);
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
-		info->no++;
 	}
 }
 
@@ -60,19 +61,21 @@ void	middle_process(t_info *info, int i, char **argv, char **envp)
 		ft_extract(argv[info->no], info);
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
-		info->no++;
 	}
 }
 
 void	last_process(t_info *info, int argc, char **argv, char **envp)
 {
-	info->pid[argc - 4] = fork();
-	if (info->pid[argc - 4] == -1)
+	info->pid[info->lastpid] = fork();
+	if (info->pid[info->lastpid] == -1)
 		exit(0);
-	if (info->pid[argc - 4] == 0)
+	if (info->pid[info->lastpid] == 0)
 	{
 		info->out = ft_strdup(argv[argc - 1]);
-		info->out_fd = open(info->out, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (ft_strnstr(argv[1], "here_doc", 8))
+			info->out_fd = open(info->out, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		else
+			info->out_fd = open(info->out, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (info->out_fd == -1)
 		{
 			free(info->out);
@@ -87,5 +90,6 @@ void	last_process(t_info *info, int argc, char **argv, char **envp)
 		ft_extract(argv[argc - 2], info);
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
+		unlink("temp");
 	}
 }
