@@ -6,14 +6,15 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:59:00 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/06 14:41:50 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/06 19:57:12 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	first_process(t_info *info, char **argv, char **envp)
+void	first_process(t_info *info, int i, char **argv, char **envp)
 {
+	i = 9;
 	info->pid[0] = fork();
 	if (info->pid[0] == -1)
 		exit(0);
@@ -32,9 +33,10 @@ void	first_process(t_info *info, char **argv, char **envp)
 		close(info->pipe[0]);
 		close(info->pipe[1]);
 		info->flag = NULL;
-		ft_extract(argv[2], info);
+		ft_extract(argv[info->no], info);
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
+		info->no++;
 	}
 }
 
@@ -55,9 +57,10 @@ void	middle_process(t_info *info, int i, char **argv, char **envp)
 		close(info->pipe[0]);
 		close(info->pipe[1]);
 		info->flag = NULL;
-		ft_extract(argv[i + 1], info);
+		ft_extract(argv[info->no], info);
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
+		info->no++;
 	}
 }
 
