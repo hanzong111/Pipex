@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/08 23:25:58 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:32:26 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	calculate(t_info *info, int argc, char **argv)
 		info->no = 3;
 		info->lastpid = argc - 5;
 	}
-	info->pid = malloc(sizeof(pid_t) * info->process);
-	info->pipe = malloc(sizeof(int) * 2);
 }
 
 void	error_checks(int argc, char **argv)
@@ -85,6 +83,8 @@ int	main(int argc, char **argv, char**envp)
 
 	error_checks(argc, argv);
 	calculate(&info, argc, argv);
+	info.pid = malloc(sizeof(pid_t) * info.process);
+	info.pipe = malloc(sizeof(int) * 2);
 	if (pipe(info.pipe) == -1)
 		return (0);
 	if (ft_strnstr(argv[1], "here_doc", 8))
