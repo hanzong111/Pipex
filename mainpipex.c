@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/08 16:16:23 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:48:28 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,44 @@ void	calculate(t_info *info, int argc, char **argv)
 	info->pipe = malloc(sizeof(int) * 2);
 }
 
+void	error_checks(int argc, char **argv)
+{
+	if (ft_strnstr(argv[1], "here_doc", 8))
+	{
+		if (argc < 6)
+		{
+			perror("Needs more argument.");
+			exit (0);
+		}
+	}
+	else if (argc < 5)
+	{
+		perror("Needs more argument.");
+		exit (0);
+	}
+}
+
 int	main(int argc, char **argv, char**envp)
 {
 	int		i;
 	t_info	info;
 
-	if (argc >= 5)
-	{
-		i = 1;
-		calculate(&info, argc, argv);
-		if (pipe(info.pipe) == -1)
-			return (0);
-		if (ft_strnstr(argv[1], "here_doc", 8))
-			here_doc(&info, argv);
-		first_process(&info, argv, envp);
-		while (++i < info.process)
-		{
-			info.no++;
-			middle_process(&info, i, argv, envp);
-		}
-		last_process(&info, argc, argv, envp);
-		close_wait(&info);
-		free(info.pid);
-		free(info.pipe);
+	error_checks(argc, argv);
+	i = 1;
+	calculate(&info, argc, argv);
+	if (pipe(info.pipe) == -1)
 		return (0);
+	if (ft_strnstr(argv[1], "here_doc", 8))
+		here_doc(&info, argv);
+	first_process(&info, argv, envp);
+	while (++i < info.process)
+	{
+		info.no++;
+		middle_process(&info, i, argv, envp);
 	}
-	printf("Need at least 4 arguments\n");
+	last_process(&info, argc, argv, envp);
+	close_wait(&info);
+	free(info.pid);
+	free(info.pipe);
 	return (0);
 }
