@@ -6,11 +6,11 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 04:16:19 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/07 04:49:23 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:16:44 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "pipex.h"
+#include "pipex.h"
 
 int	check(char *buf, char *limit, int len)
 {
@@ -33,7 +33,7 @@ int	compare(t_info *info)
 
 	len = ft_strlen(info->limit);
 	if (info->buf == NULL)
-		return (0);
+		return (1);
 	if (*info->buf == *info->limit)
 	{
 		if (check(info->buf, info->limit, len))

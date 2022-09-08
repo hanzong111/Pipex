@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/07 05:17:30 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:16:23 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	here_doc(t_info *info, char **argv)
 	info->buf = get_next_line(info->here_fd);
 	while (compare(info))
 	{
-		write(info->temp_fd, info->buf, ft_strlen(info->buf));
-		free(info->buf);
+		if (info->buf != NULL)
+		{
+			write(info->temp_fd, info->buf, ft_strlen(info->buf));
+			free(info->buf);
+		}
 		info->buf = get_next_line(info->here_fd);
-		if (info->buf == NULL)
-			break ;
 	}
 	free(info->buf);
 	free(info->limit);
@@ -63,9 +64,8 @@ void	calculate(t_info *info, int argc, char **argv)
 
 int	main(int argc, char **argv, char**envp)
 {
-	t_info	info;
-
 	int		i;
+	t_info	info;
 
 	if (argc >= 5)
 	{

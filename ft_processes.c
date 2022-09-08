@@ -6,11 +6,26 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:59:00 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/07 05:21:38 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:31:18 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	first_process_open(t_info *info, char **argv)
+{
+	if (ft_strnstr(argv[1], "here_doc", 8))
+		info->in = ft_strdup("temp");
+	else
+		info->in = ft_strdup(argv[1]);
+	info->in_fd = open(info->in, O_RDONLY);
+	if (info->in_fd == -1)
+	{
+		free(info->in);
+		perror("Infile Error");
+		exit(0);
+	}
+}
 
 void	first_process(t_info *info, char **argv, char **envp)
 {
@@ -19,19 +34,14 @@ void	first_process(t_info *info, char **argv, char **envp)
 		exit(0);
 	if (info->pid[0] == 0)
 	{	
-		if (!ft_strnstr(argv[1], "here_doc", 8))
-			info->in = ft_strdup(argv[1]);
-		else
-			info->in = ft_strdup("temp");
-		info->in_fd = open(info->in, O_RDONLY);
-		if (info->in_fd == -1)
-		{
-			free(info->in);
-			perror("Infile Error");
-			exit(0);
-		}
+		first_process_open(info, argv);
 		dup2(info->in_fd, STDIN_FILENO);
 		dup2(info->pipe[1], STDOUT_FILENO);
+		if (ft_strnstr(argv[1], "here_doc", 8))
+		{
+			if (unlink("temp") < 0)
+				perror("unlink error");
+		}
 		close(info->pipe[0]);
 		close(info->pipe[1]);
 		info->flag = NULL;
@@ -90,6 +100,5 @@ void	last_process(t_info *info, int argc, char **argv, char **envp)
 		ft_extract(argv[argc - 2], info);
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
-		unlink("temp");
 	}
 }
