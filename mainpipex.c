@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 03:27:47 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/08 16:48:28 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:55:19 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	here_doc(t_info *info, char **argv)
 	info->limit = ft_strdup(argv[2]);
 	info->temp_fd = open("temp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	info->here_fd = open("here_doc", O_RDONLY);
+	if (info->here_fd < 0)
+	{
+		perror("here_doc error");
+		exit (0);
+	}
 	info->buf = get_next_line(info->here_fd);
 	while (compare(info))
 	{
@@ -64,17 +69,22 @@ void	calculate(t_info *info, int argc, char **argv)
 
 void	error_checks(int argc, char **argv)
 {
+	if (argc <= 1)
+	{
+		ft_printf("Needs more argument\n");
+		exit (0);
+	}
 	if (ft_strnstr(argv[1], "here_doc", 8))
 	{
 		if (argc < 6)
 		{
-			perror("Needs more argument.");
+			ft_printf("Needs more argument\n");
 			exit (0);
 		}
 	}
-	else if (argc < 5)
+	if (argc < 5)
 	{
-		perror("Needs more argument.");
+		ft_printf("Needs more argument\n");
 		exit (0);
 	}
 }
