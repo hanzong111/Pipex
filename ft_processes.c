@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:59:00 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/08 16:31:18 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:27:29 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	first_process_open(t_info *info, char **argv)
 	info->in_fd = open(info->in, O_RDONLY);
 	if (info->in_fd == -1)
 	{
+		print_error(info->in);
 		free(info->in);
-		perror("Infile Error");
-		exit(0);
+		exit (0);
 	}
 }
 
@@ -40,7 +40,7 @@ void	first_process(t_info *info, char **argv, char **envp)
 		if (ft_strnstr(argv[1], "here_doc", 8))
 		{
 			if (unlink("temp") < 0)
-				perror("unlink error");
+				print_error("Unlink Failure");
 		}
 		close(info->pipe[0]);
 		close(info->pipe[1]);
@@ -88,8 +88,8 @@ void	last_process(t_info *info, int argc, char **argv, char **envp)
 			info->out_fd = open(info->out, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (info->out_fd == -1)
 		{
+			print_error(info->out);
 			free(info->out);
-			perror("Outfile Error");
 			exit(0);
 		}
 		dup2(info->pipe[0], STDIN_FILENO);
@@ -101,4 +101,18 @@ void	last_process(t_info *info, int argc, char **argv, char **envp)
 		ft_pathsort(envp, info);
 		ft_execute(envp, info);
 	}
+}
+
+void	process(t_info *info, int argc, char **argv, char **envp)
+{
+	int	i;
+
+	i = 1;
+	first_process(info, argv, envp);
+	while (++i < info->process)
+	{
+		info->no++;
+		middle_process(info, i, argv, envp);
+	}
+	last_process(info, argc, argv, envp);
 }

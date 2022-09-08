@@ -2,21 +2,15 @@ SRCS	= ft_extract.c\
 			ft_pathsort.c\
 			ft_processes.c\
 			ft_compare.c\
-
-OBJS	= ft_extract.o\
-			ft_pathsort.o\
-			ft_processes.o\
-			ft_compare.o\
+			mainpipex.c
 
 NAME	= pipex
 
-LIBNAME	= libftpipex.a
+LIBNAME	= libft.a
 
 CC 	= gcc
 
 FLAGS 	= -Wall -Werror -Wextra -I .
-
-ARRC	= ar rcs
 
 RM		= rm -rf 
 
@@ -32,38 +26,29 @@ WHITE         = \033[0;97m
 
 all		: ${NAME}
 
-$(NAME)			: ${LIBNAME}
+$(NAME)			: ${SRCS} | ${LIBNAME}
 				@echo "$(MAGENTA) --------------------------COMPILING ./PIPEX-------------------------- $(CYAN)"
 				@echo "\n"
-				${CC} ${FLAGS} mainpipex.c ${LIBNAME} -o ${NAME}
+				${CC} ${FLAGS} ${SRCS} ${LIBNAME} -o ${NAME}
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
+				
+				@echo "$(GREEN) ----------------$(RED)I $(CYAN)AM $(GREEN)NOT $(YELLOW)RUDE$(GREEN)---------------------------- $(DEF_COLOR)"
 
-${LIBNAME}	: ${OBJS}
+${LIBNAME}		:
+				@echo "$(MAGENTA) --------------------------COMPILING LIBFT.A-------------------------- $(CYAN)"
+				@echo "\n"
 				make -C libft
-				@echo "$(MAGENTA) --------------------------COMPILING LIBFTPIPEX.A-------------------------- $(CYAN)"
-				@echo "\n"
 				cp libft/libft.a .
-				mv libft.a libftpipex.a
-				${ARRC} libftpipex.a ${OBJS}
 				@echo "\n"
 				@echo "$(GREEN) -------------$(RED)I $(CYAN)AM $(GREEN)DONE $(YELLOW)MADAFAKA$(GREEN)-------------------------- $(DEF_COLOR)"
-
-%.o				: %.c
-				@echo "$(MAGENTA)"
-				${CC} ${FLAGS} -c $< -o $@
 
 clean			:
-				@make clean -C libft
-				@echo "$(MAGENTA) --------------------------CLEANING PIPEX OBJECTS-------------------------- $(CYAN)"
-				@echo "\n"
-				${RM} ${OBJS}
-				@echo "\n"
-				@echo "$(GREEN) --------------------------DONE--------------------------$(DEF_COLOR)"
+				make clean -C libft
 
 fclean			: clean
-				@make fclean -C libft
-				@echo "$(MAGENTA) --------------------------REMOVING libftpipex.a-------------------------- $(CYAN)"
+				make fclean -C libft
+				@echo "$(MAGENTA) --------------------------REMOVING libft.a-------------------------- $(CYAN)"
 				@echo "\n"
 				${RM} ${LIBNAME}
 				@echo "\n"

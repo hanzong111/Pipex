@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:25:25 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/06 14:14:27 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:14:47 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,18 @@ void	ft_pathsort(char **envp, t_info *info)
 	temp = ft_pathcat(paths);
 	cmd_path = ft_path_check(temp, info->cmd);
 	if (cmd_path == NULL)
-		perror("Command");
+	{
+		print_error(info->cmd);
+		exit (0);
+	}
 	free(temp);
 	info->path = cmd_path;
+}
+
+void	print_error(char *str)
+{
+	write (2, str, ft_strlen(str));
+	write(2, " :", 2);
+	write(2, strerror(errno), ft_strlen(strerror(errno)));
+	write(2, "\n", 1);
 }
