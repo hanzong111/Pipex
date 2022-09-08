@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 02:13:20 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/08 22:26:35 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:57:55 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_extract(char	*str, t_info *info)
 
 /*	To Fill the command and options into an array 	*/
 /*	So that it can be passed to execve to be used	*/
-void	ft_execute(char **envp, t_info *info)
+void	ft_execve(char **envp, t_info *info)
 {
 	int	i;
 

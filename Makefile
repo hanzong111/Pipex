@@ -1,7 +1,7 @@
 SRCS	= ft_extract.c\
 			ft_pathsort.c\
 			ft_processes.c\
-			ft_compare.c\
+			pipex_utils.c\
 			mainpipex.c
 
 NAME	= pipex

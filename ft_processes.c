@@ -6,7 +6,7 @@
 /*   By: ojing-ha <ojing-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:59:00 by ojing-ha          #+#    #+#             */
-/*   Updated: 2022/09/08 23:27:29 by ojing-ha         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:57:50 by ojing-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	first_process(t_info *info, char **argv, char **envp)
 		info->flag = NULL;
 		ft_extract(argv[info->no], info);
 		ft_pathsort(envp, info);
-		ft_execute(envp, info);
+		ft_execve(envp, info);
 	}
 }
 
@@ -70,7 +70,7 @@ void	middle_process(t_info *info, int i, char **argv, char **envp)
 		info->flag = NULL;
 		ft_extract(argv[info->no], info);
 		ft_pathsort(envp, info);
-		ft_execute(envp, info);
+		ft_execve(envp, info);
 	}
 }
 
@@ -99,7 +99,7 @@ void	last_process(t_info *info, int argc, char **argv, char **envp)
 		info->flag = NULL;
 		ft_extract(argv[argc - 2], info);
 		ft_pathsort(envp, info);
-		ft_execute(envp, info);
+		ft_execve(envp, info);
 	}
 }
 
